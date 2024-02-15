@@ -14,7 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerTeleportEvent;
-import org.bukkit.material.MaterialData;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.*;
@@ -28,7 +28,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
 //    public static boolean PORTALS_REQUIRE_ACTIVATION = true;
 
     private HashMap<String, ArrayList<Portal>> worldPortals = new HashMap<>();
-    private HashMap<String, MaterialData> portalMaterials = new HashMap<>();
+    private HashMap<String, BlockData> portalMaterials = new HashMap<>();
     private HashMap<String, Double> worldScales = new HashMap<>();
 
     private FileConfiguration config;
@@ -48,7 +48,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
         assert portalsConfig != null;
         Set<String> portalWorlds = portalsConfig.getKeys(false);
         for (String world : portalWorlds) {
-            MaterialData material = getMaterialData(Objects.requireNonNull(portalsConfig.getString(world)));
+            BlockData material = getBlockData(Objects.requireNonNull(portalsConfig.getString(world)));
             portalMaterials.put(world, material);
             worldPortals.put(world, new ArrayList<>());
         }
@@ -202,8 +202,8 @@ public class CustomPortals extends JavaPlugin implements Listener {
         World targetWorld = targetLocation.getWorld();
         World sourceWorld = Bukkit.getWorld(sourceWorldName);
 
-        MaterialData materialData = getPortalMaterial(sourceWorldName);
-        log("Portal should be constructed from " + materialData + " to return to world " + sourceWorldName);
+        BlockData BlockData = getPortalMaterial(sourceWorldName);
+        log("Portal should be constructed from " + BlockData + " to return to world " + sourceWorldName);
 
         int targetX = targetLocation.getBlockX();
         int targetZ = targetLocation.getBlockZ();
@@ -234,7 +234,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
                 return null;
             }
 
-            return getPortal(targetWorld, sourceWorld, materialData, portalBase);
+            return getPortal(targetWorld, sourceWorld, BlockData, portalBase);
         } else {
             log("Finding location via Bukkit");
 
@@ -276,11 +276,11 @@ public class CustomPortals extends JavaPlugin implements Listener {
                 return null;
             }
 
-            return getPortal(targetWorld, sourceWorld, materialData, space);
+            return getPortal(targetWorld, sourceWorld, BlockData, space);
         }
     }
 
-    private Portal getPortal(World targetWorld, World sourceWorld, MaterialData materialData, Block space) {
+    private Portal getPortal(World targetWorld, World sourceWorld, BlockData BlockData, Block space) {
         Block[][] portalBlocks = new Block[4][5];
         portalBlocks[0][0] = space.getRelative(0, -1, 0);
         portalBlocks[1][0] = space.getRelative(1, -1, 0);
@@ -321,9 +321,9 @@ public class CustomPortals extends JavaPlugin implements Listener {
         };
 
         for (Block block : outerPortalBlocks) {
-            block.setType(materialData.getItemType());
+            block.setType(block.getType());
             //todo see what this does
-            //block.setData(materialData.getData(), false);
+            //block.setData(BlockData.getData(), false);
         }
 
         Portal targetPortal = new Portal(targetWorld.getName(), sourceWorld.getName(), portalBlocks);
@@ -361,7 +361,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
         Block block = event.getClickedBlock().getRelative(event.getBlockFace()).getRelative(BlockFace.DOWN);
         String targetWorld = getPortalTarget(block);
         if (targetWorld == null) return;
-        MaterialData material = getPortalMaterial(targetWorld);
+        BlockData material = getPortalMaterial(targetWorld);
 
         boolean down = isValidBlock(block, material);
 
@@ -545,35 +545,34 @@ public class CustomPortals extends JavaPlugin implements Listener {
         return areValidBlocks(outerPortalBlocks, getPortalMaterial(portal.getTargetWorld()));
     }
 
-    private boolean areValidBlocks(Block[] blocks, MaterialData material) {
+    private boolean areValidBlocks(Block[] blocks, BlockData material) {
         for (Block block : blocks) {
             if (!isValidBlock(block, material)) return false;
         }
         return true;
     }
 
-    private boolean isValidBlock(Block block, MaterialData material) {
-        return material.equals(getMaterialData(block));
+    private boolean isValidBlock(Block block, BlockData material) {
+        return material.equals(getBlockData(block));
     }
 
     private String getPortalTarget(Block block) {
-        MaterialData materialData = getMaterialData(block);
-        for (Map.Entry<String, MaterialData> entry : portalMaterials.entrySet()) {
-            if (entry.getValue().equals(materialData)) return entry.getKey();
+        BlockData BlockData = getBlockData(block);
+        for (Map.Entry<String, BlockData> entry : portalMaterials.entrySet()) {
+            if (entry.getValue().equals(BlockData)) return entry.getKey();
         }
         return null;
     }
 
-    private MaterialData getPortalMaterial(String targetWorld) {
+    private BlockData getPortalMaterial(String targetWorld) {
         return portalMaterials.get(targetWorld);
     }
 
-    private MaterialData getMaterialData(Block block) {
-        return new MaterialData(block.getType(), block.getData());
+    private BlockData getBlockData(Block block) {
+        return block.getBlockData();
     }
 
-    private MaterialData getMaterialData(String materialData) {
-        String[] parts = materialData.split(":");
-        return new MaterialData(Integer.parseInt(parts[0]), Byte.parseByte(parts[1]));
+    private BlockData getBlockData(String blockData) {
+        return Bukkit.createBlockData(blockData);
     }
 }
