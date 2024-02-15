@@ -66,11 +66,13 @@ public class CustomPortals extends JavaPlugin implements Listener {
 //        PORTALS_REQUIRE_ACTIVATION = config.getBoolean("require-activation", true);
         DEBUG_MODE = config.getBoolean("debug-mode", false);
         log("Debug mode enabled.");
+        getServer().getConsoleSender().sendMessage("CustomPortals has been enabled.");
     }
 
     @Override
     public void onDisable() {
         savePortals();
+        getServer().getConsoleSender().sendMessage("CustomPortals has been disabled.");
     }
 
     private void loadPortals() {
