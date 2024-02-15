@@ -25,3 +25,4 @@ replay_pid*
 
 # Complied JARs
 builds/
+/bin/

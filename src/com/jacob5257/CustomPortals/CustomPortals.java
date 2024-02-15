@@ -39,21 +39,35 @@ public class CustomPortals extends JavaPlugin implements Listener {
         config = getConfig();
         loadConfig();
         loadPortals();
-
+    
         this.getServer().getPluginManager().registerEvents(this, this);
+
+        getServer().getConsoleSender().sendMessage("CustomPortals has been enabled.");
     }
 
     private void loadConfig() {
         ConfigurationSection portalsConfig = config.getConfigurationSection("portal-materials");
-        assert portalsConfig != null;
+        if (portalsConfig == null) {
+        	getServer().getConsoleSender().sendMessage("[CustomPortals] Invalid portal material in configuration file!");
+        	System.exit(0);
+        }
         Set<String> portalWorlds = portalsConfig.getKeys(false);
         for (String world : portalWorlds) {
-            BlockData material = getBlockData(Objects.requireNonNull(portalsConfig.getString(world)));
+        	if (portalsConfig.getString(world) == null) {
+        		getServer().getConsoleSender().sendMessage("[CustomPortals] Invalid world in configuration file!");
+        		System.exit(0);
+        	}
+        	String worldString = portalsConfig.getString(world);
+            BlockData material = getBlockData(worldString);
             portalMaterials.put(world, material);
             worldPortals.put(world, new ArrayList<>());
         }
 
         ConfigurationSection worldScaleConfig = config.getConfigurationSection("world-scale");
+        if (worldScaleConfig == null) {
+        	getServer().getConsoleSender().sendMessage("[CustomPortals] Invalid world scale in configuration file!");
+        	System.exit(0);
+        }
         Set<String> scaleWorlds = worldScaleConfig.getKeys(false);
         for (String world : scaleWorlds) {
             double worldScale = worldScaleConfig.getDouble(world);
@@ -66,7 +80,6 @@ public class CustomPortals extends JavaPlugin implements Listener {
 //        PORTALS_REQUIRE_ACTIVATION = config.getBoolean("require-activation", true);
         DEBUG_MODE = config.getBoolean("debug-mode", false);
         log("Debug mode enabled.");
-        getServer().getConsoleSender().sendMessage("CustomPortals has been enabled.");
     }
 
     @Override

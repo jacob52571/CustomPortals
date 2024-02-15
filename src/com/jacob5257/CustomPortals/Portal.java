@@ -47,7 +47,8 @@ public class Portal {
                 portalBlocks[2][3]
         };
 
-        boolean northSouth = portalBlocks[0][0].getX() == portalBlocks[0][1].getX();
+        //todo see what teleportBlock.setData(byte, boolean) does
+        //boolean northSouth = portalBlocks[0][0].getX() == portalBlocks[0][1].getX();
 
         // Create 'portal' within portal
         for (Block teleportBlock : innerPortalBlocks) {
