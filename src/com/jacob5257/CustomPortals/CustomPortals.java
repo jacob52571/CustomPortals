@@ -45,9 +45,10 @@ public class CustomPortals extends JavaPlugin implements Listener {
 
     private void loadConfig() {
         ConfigurationSection portalsConfig = config.getConfigurationSection("portal-materials");
+        assert portalsConfig != null;
         Set<String> portalWorlds = portalsConfig.getKeys(false);
         for (String world : portalWorlds) {
-            MaterialData material = getMaterialData(portalsConfig.getString(world));
+            MaterialData material = getMaterialData(Objects.requireNonNull(portalsConfig.getString(world)));
             portalMaterials.put(world, material);
             worldPortals.put(world, new ArrayList<>());
         }
