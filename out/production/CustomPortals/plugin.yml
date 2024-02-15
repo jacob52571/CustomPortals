@@ -1,0 +1,5 @@
+name: CustomPortals
+version: 1.0
+author: jacob5257
+main: com.jacob5257.CustomPortals.CustomPortals
+api-version: 1.20

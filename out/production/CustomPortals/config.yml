@@ -1,0 +1,11 @@
+debug-mode: false
+portal-search-range: 64
+portal-creation-range: 24
+
+portal-materials:
+  world: "stone"
+  world_nether: "obsidian"
+
+world-scale:
+  world: 1.0
+  world_nether: 8.0
