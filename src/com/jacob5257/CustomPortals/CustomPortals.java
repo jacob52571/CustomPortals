@@ -199,7 +199,6 @@ public class CustomPortals extends JavaPlugin implements Listener {
                         targetPortal.teleportPlayer(player);
                     } else {
                         player.sendMessage("Could not create a portal.");
-                        return;
                     }
                 }
             } else {
@@ -217,8 +216,8 @@ public class CustomPortals extends JavaPlugin implements Listener {
         World targetWorld = targetLocation.getWorld();
         World sourceWorld = Bukkit.getWorld(sourceWorldName);
 
-        BlockData BlockData = getPortalMaterial(sourceWorldName);
-        log("Portal should be constructed from " + BlockData + " to return to world " + sourceWorldName);
+        BlockData blockData = getPortalMaterial(sourceWorldName);
+        log("Portal should be constructed from " + blockData + " to return to world " + sourceWorldName);
 
         int targetX = targetLocation.getBlockX();
         int targetZ = targetLocation.getBlockZ();
@@ -249,7 +248,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
                 return null;
             }
 
-            return getPortal(targetWorld, sourceWorld, BlockData, portalBase);
+            return getPortal(targetWorld, sourceWorld, blockData, portalBase);
         } else {
             log("Finding location via Bukkit");
 
@@ -291,11 +290,11 @@ public class CustomPortals extends JavaPlugin implements Listener {
                 return null;
             }
 
-            return getPortal(targetWorld, sourceWorld, BlockData, space);
+            return getPortal(targetWorld, sourceWorld, blockData, space);
         }
     }
 
-    private Portal getPortal(World targetWorld, World sourceWorld, BlockData BlockData, Block space) {
+    private Portal getPortal(World targetWorld, World sourceWorld, BlockData blockData, Block space) {
         Block[][] portalBlocks = new Block[4][5];
         portalBlocks[0][0] = space.getRelative(0, -1, 0);
         portalBlocks[1][0] = space.getRelative(1, -1, 0);
@@ -338,7 +337,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
         for (Block block : outerPortalBlocks) {
             block.setType(block.getType());
             //todo see what this does
-            //block.setData(BlockData.getData(), false);
+            //block.setData(blockData.getData(), false);
         }
 
         Portal targetPortal = new Portal(targetWorld.getName(), sourceWorld.getName(), portalBlocks);
@@ -572,9 +571,9 @@ public class CustomPortals extends JavaPlugin implements Listener {
     }
 
     private String getPortalTarget(Block block) {
-        BlockData BlockData = getBlockData(block);
+        BlockData blockData = getBlockData(block);
         for (Map.Entry<String, BlockData> entry : portalMaterials.entrySet()) {
-            if (entry.getValue().equals(BlockData)) return entry.getKey();
+            if (entry.getValue().equals(blockData)) return entry.getKey();
         }
         return null;
     }
