@@ -2,7 +2,8 @@ package com.jacob5257.CustomPortals;
 
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-
+import org.bukkit.block.BlockFace;
+import org.bukkit.block.data.Directional;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
@@ -48,13 +49,18 @@ public class Portal {
         };
 
         //todo see what teleportBlock.setData(byte, boolean) does
-        //boolean northSouth = portalBlocks[0][0].getX() == portalBlocks[0][1].getX();
+        boolean northSouth = portalBlocks[0][0].getX() == portalBlocks[0][1].getX();
 
         // Create 'portal' within portal
         for (Block teleportBlock : innerPortalBlocks) {
-            teleportBlock.setType(Material.NETHER_PORTAL,false);
-            // todo see if this creates any problems
-            //teleportBlock.setData((byte) (northSouth ? 1 : 0), false);
+            teleportBlock.setType(Material.NETHER_PORTAL, false);
+            Directional directional = (Directional) teleportBlock.getBlockData();
+            if (northSouth) {
+            	directional.setFacing(BlockFace.NORTH);
+            } else {
+            	directional.setFacing(BlockFace.EAST);
+            }
+            teleportBlock.setBlockData(directional);
         }
     }
 
