@@ -8,6 +8,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -169,6 +170,49 @@ public class CustomPortals extends JavaPlugin implements Listener {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    @EventHandler
+    public void onPlayerPortal(PlayerPortalEvent event) {
+    	// get the portal block they went through
+    	Block portalBlock = event.getFrom().getBlock();
+    	Portal targetPortal = null;
+    	// check if there are any
+    	if (worldPortals.containsKey(portalBlock.getWorld().toString())) {
+    		ArrayList<Portal> portalsInWorld = worldPortals.get(portalBlock.getWorld().toString());
+    		for (Portal portal : portalsInWorld) {
+    			Block[][] portalBlocksList = portal.getPortalBlocks();
+    			for (Block[] blockList : portalBlocksList) {
+    				for (Block b : blockList) {
+    					if (b.equals(portalBlock)) {
+    						targetPortal = portal;
+    						break;
+    					}
+    				}
+    			}
+    		}
+    	} else {
+    		event.getPlayer().sendMessage("World not found in database.");
+    		return;
+    	}
+    	if (targetPortal != null) {
+    		String targetWorld = targetPortal.getTargetWorld();
+    		World destinationWorld = Bukkit.getWorld(targetWorld);
+    		if (destinationWorld != null) {
+    			Player player = event.getPlayer();
+    			Location spawnLocation = destinationWorld.getSpawnLocation();
+    			player.teleport(spawnLocation);
+    		}
+    		else {
+    			event.getPlayer().sendMessage("Target world is invalid.");
+    		}
+    	}
+    	else {
+    		event.getPlayer().sendMessage("Portal not found in database.");
+    	}
+    	/*
+    	 * see if the portal exists 
+    	 */
     }
 
     @EventHandler
