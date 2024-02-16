@@ -172,6 +172,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
         }
     }
     
+    /*
     @EventHandler
     public void onPlayerPortal(PlayerPortalEvent event) {
     	// get the portal block they went through
@@ -212,11 +213,13 @@ public class CustomPortals extends JavaPlugin implements Listener {
     	}
     	/*
     	 * see if the portal exists 
-    	 */
+    	 
     }
 
+*/
+    
     @EventHandler
-    public void onPlayerTeleport(PlayerTeleportEvent event) {
+    public void onPlayerPortal(PlayerPortalEvent event) {
         if (!event.getCause().equals(PlayerTeleportEvent.TeleportCause.NETHER_PORTAL)) return;
         event.setCancelled(true);
 
