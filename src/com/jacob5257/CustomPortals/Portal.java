@@ -3,11 +3,7 @@ package com.jacob5257.CustomPortals;
 import org.bukkit.Axis;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
-import org.bukkit.block.BlockFace;
-import org.bukkit.block.data.Directional;
-import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.block.data.Orientable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
@@ -50,16 +46,18 @@ public class Portal {
                 portalBlocks[2][3]
         };
 
-        boolean northSouth = portalBlocks[0][0].getX() == portalBlocks[0][1].getX();
+        boolean northSouth = portalBlocks[0][0].getX() == portalBlocks[1][0].getX();
 
         // Create 'portal' within portal
         for (Block teleportBlock : innerPortalBlocks) {
             teleportBlock.setType(Material.NETHER_PORTAL, false);
             Orientable directional = (Orientable) teleportBlock.getBlockData();
             if (northSouth) {
-            	directional.setAxis(Axis.X);
-            } else {
             	directional.setAxis(Axis.Z);
+                log("Setting axis to Z");
+            } else {
+            	directional.setAxis(Axis.X);
+                log("Setting axis to X");
             }
             teleportBlock.setBlockData(directional);
         }
