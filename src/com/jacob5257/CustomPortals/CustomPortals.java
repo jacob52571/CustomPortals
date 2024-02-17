@@ -225,7 +225,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
 
         Player player = event.getPlayer();
         Location sourceLocation = event.getFrom();
-        Portal sourcePortal = getNearestPortal(sourceLocation, null);
+        Portal sourcePortal = getSourcePortal(sourceLocation);
 
         if (sourcePortal != null) {
             // Found a portal that they're stood at!
@@ -583,6 +583,21 @@ public class CustomPortals extends JavaPlugin implements Listener {
             minDistance = distance;
         }
         log("No portal found");
+        return closestPortal;
+    }
+
+    private Portal getSourcePortal(Location location) {
+        World world = location.getWorld();
+        ArrayList<Portal> portals = worldPortals.get(world.getName());
+        double minDistance = 10;
+        Portal closestPortal = null;
+        for (Portal portal : portals) {
+        	double distance = portal.getDistance(location);
+            log("Distance: " + distance);
+        	if (distance < 0 || distance > minDistance) continue;
+        	closestPortal = portal;
+        	minDistance = distance;
+        }
         return closestPortal;
     }
 
