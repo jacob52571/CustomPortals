@@ -172,52 +172,6 @@ public class CustomPortals extends JavaPlugin implements Listener {
         }
     }
     
-    /*
-    @EventHandler
-    public void onPlayerPortal(PlayerPortalEvent event) {
-    	// get the portal block they went through
-    	Block portalBlock = event.getFrom().getBlock();
-    	Portal targetPortal = null;
-    	// check if there are any
-    	if (worldPortals.containsKey(portalBlock.getWorld().toString())) {
-    		ArrayList<Portal> portalsInWorld = worldPortals.get(portalBlock.getWorld().toString());
-    		for (Portal portal : portalsInWorld) {
-    			Block[][] portalBlocksList = portal.getPortalBlocks();
-    			for (Block[] blockList : portalBlocksList) {
-    				for (Block b : blockList) {
-    					if (b.equals(portalBlock)) {
-    						targetPortal = portal;
-    						break;
-    					}
-    				}
-    			}
-    		}
-    	} else {
-    		event.getPlayer().sendMessage("World not found in database.");
-    		return;
-    	}
-    	if (targetPortal != null) {
-    		String targetWorld = targetPortal.getTargetWorld();
-    		World destinationWorld = Bukkit.getWorld(targetWorld);
-    		if (destinationWorld != null) {
-    			Player player = event.getPlayer();
-    			Location spawnLocation = destinationWorld.getSpawnLocation();
-    			player.teleport(spawnLocation);
-    		}
-    		else {
-    			event.getPlayer().sendMessage("Target world is invalid.");
-    		}
-    	}
-    	else {
-    		event.getPlayer().sendMessage("Portal not found in database.");
-    	}
-    	/*
-    	 * see if the portal exists 
-    	 
-    }
-
-*/
-    
     @EventHandler
     public void onPlayerPortal(PlayerPortalEvent event) {
         if (!event.getCause().equals(PlayerTeleportEvent.TeleportCause.NETHER_PORTAL)) return;
@@ -382,9 +336,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
         };
 
         for (Block block : outerPortalBlocks) {
-            block.setType(block.getType());
-            //todo see what this does
-            //block.setData(blockData.getData(), false);
+            block.setBlockData(blockData);
         }
 
         Portal targetPortal = new Portal(targetWorld.getName(), sourceWorld.getName(), portalBlocks);

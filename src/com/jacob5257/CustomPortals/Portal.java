@@ -7,7 +7,6 @@ import org.bukkit.Material;
 import org.bukkit.block.data.Orientable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
-import java.util.*;
 
 import static com.jacob5257.CustomPortals.CustomPortals.log;
 
@@ -54,10 +53,8 @@ public class Portal {
             Orientable directional = (Orientable) teleportBlock.getBlockData();
             if (northSouth) {
             	directional.setAxis(Axis.Z);
-                log("Setting axis to Z");
             } else {
             	directional.setAxis(Axis.X);
-                log("Setting axis to X");
             }
             teleportBlock.setBlockData(directional);
         }
@@ -65,7 +62,7 @@ public class Portal {
 
     public void teleportPlayer(Player player) {
         log("Teleporting " + player.getName() + " to " + getPortalWorld());
-        player.teleport(portalBlocks[1][1].getLocation().clone().add(0, 0.1, 0), TeleportCause.PLUGIN);
+        player.teleport(portalBlocks[1][1].getLocation().clone().add(0, -2.5, 0), TeleportCause.PLUGIN);
     }
 
     public String getPortalWorld() {
