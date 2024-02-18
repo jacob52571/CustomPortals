@@ -8,3 +8,6 @@ permissions:
    customportals.create:
       description: Allows you to create portals to custom worlds.
       default: op
+   customportals.manage:
+      description: Allows you to reset all portals.
+      default: op
