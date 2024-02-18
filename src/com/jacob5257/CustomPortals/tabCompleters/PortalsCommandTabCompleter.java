@@ -13,9 +13,24 @@ public class PortalsCommandTabCompleter implements TabCompleter {
     @Override
     public List<String> onTabComplete(CommandSender sender, Command cmd, String label, String[] args) {
         if (arguments.isEmpty()) {
+            /*
+             * commandSender.sendMessage("§6Custom Portals §7- §aHelp");
+             *                 commandSender.sendMessage("§6/portals §7- §aDisplays plugin information.");
+             *                 commandSender.sendMessage("§6/portals help §7- §aDisplays this help message.");
+             *                 if (commandSender.hasPermission("customportals.reset")) {
+             *                     commandSender.sendMessage("§6/portals config §7- §Dump the configuration file to chat for debugging.");
+             *                     commandSender.sendMessage("§6/portals list §7- §aLists all portals.");
+             *                     commandSender.sendMessage("§6/portals reset §7- §aResets all portals. Use with caution!");
+             *                     commandSender.sendMessage("§6/portals reload §7- §aReloads the plugin and all portals.");
+             *                 }
+             */
             arguments.add("help");
-            arguments.add("reset");
-            arguments.add("reload");
+            if (sender.hasPermission("customportals.reset")) {
+                arguments.add("config");
+                arguments.add("list");
+                arguments.add("reset");
+                arguments.add("reload");
+            }
         }
         List<String> result = new ArrayList<>();
         if (args.length == 1) {
