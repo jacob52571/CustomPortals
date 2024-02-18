@@ -22,9 +22,8 @@ public class PortalsCommand implements CommandExecutor {
                 commandSender.sendMessage("§6Custom Portals §7- §aHelp");
                 commandSender.sendMessage("§6/portals §7- §aDisplays plugin information.");
                 commandSender.sendMessage("§6/portals help §7- §aDisplays this help message.");
-                commandSender.sendMessage("§6/portals create §7- §aCreates a portal.");
-                commandSender.sendMessage("§6/portals remove §7- §aRemoves a portal.");
-                commandSender.sendMessage("§6/portals list §7- §aLists all portals.");
+                commandSender.sendMessage("§6/portals reset §7- §aResets all portals. Use with caution!");
+                commandSender.sendMessage("§6/portals reload §7- §aReloads the plugin and all portals.");
             } else if (strings[0].equalsIgnoreCase("reset")) {
                 if (commandSender.hasPermission("customportals.reset")) {
                     if (strings.length == 1) {
@@ -62,6 +61,8 @@ public class PortalsCommand implements CommandExecutor {
                 } else {
                     commandSender.sendMessage("§6Custom Portals §7- §cYou do not have permission to use this command.");
                 }
+            } else {
+                commandSender.sendMessage("§6Custom Portals §7- §cUnknown command. Use /portals help for a list of commands.");
             }
         }
         return true;

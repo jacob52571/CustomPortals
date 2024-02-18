@@ -42,7 +42,8 @@ public class CustomPortals extends JavaPlugin implements Listener {
         loadPortals();
     
         this.getServer().getPluginManager().registerEvents(this, this);
-
+        Objects.requireNonNull(getCommand("portals")).setExecutor(new PortalsCommand());
+        Objects.requireNonNull(getCommand("portals")).setTabCompleter(new PortalsCommandTabCompleter());
         getServer().getConsoleSender().sendMessage("CustomPortals has been enabled.");
     }
 
