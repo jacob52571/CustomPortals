@@ -1,14 +1,15 @@
 # CustomPortals
-Rewrite to latest MC version forked from https://github.com/incognitojam/CustomPortals
+Rewrite to the latest MC version forked from https://github.com/incognitojam/CustomPortals
+
 Create portals in your Minecraft server made from alternative materials to teleport your users to different worlds. Custom world materials can be specified in the configuration file.
 
 ## Configuration
 Below each configuration option is explained in detail.
 
 #### Portal search options
-`portal-search-range: 64` This specifies the radius in which the plugin should search for portals at the target location, before deciding to create a new portal (as none are present for the user to teleport to). *This value should always be written as an integer and not as a decimal.*
+`portal-search-range: 64` This specifies the radius in which the plugin should search for portals at the target location, before deciding to create a new portal (as none are present for the user to teleport to). *This value should always be written as an integer, not a decimal.*
 
-`portal-creation-range: 24` The radius in which the plugin should search for a space to create a portal at the destination. If no space is found in this range then no portal is created and the teleport is cancelled. *This value should always be written as an integer and not as a decimal.*
+`portal-creation-range: 24` The radius in which the plugin should search for a space to create a portal at the destination. If no space is found in this range then no portal is created and the teleport is cancelled. *This value should always be written as an integer, not a decimal.*
 
 #### Miscellaneous
 `debug-mode: false` Enables extra debugging in the console. If something doesn't seem right in the plugin, please enable debug mode, perform the action and report the full console log to a developer.
@@ -44,7 +45,7 @@ world-scale:
     arcade: 2.0
 ```
 
-You must provide a world scale for each world that a portal may be created for. If this is not specified the teleport will not commence. Decimal values are accepted but not recommended (untested).
+You must provide a world scale for each world that a portal may be created for. If this isn't specified, the teleport will not work. Decimal values are accepted but not recommended (untested).
 
 ***TODO:*** Implement default world scale.
 
@@ -69,13 +70,13 @@ destinationCoords = universeCoords * destinationWorldScale;
 ```
 #### Permissions
 `customportals.create`: allows the user to create portals. Defaults to all operators.
+
 `customportals.reset`: allows the user to reset all portals in the server. Defaults to all operators.
 
 ## Bugs/Planned Features
-* There are currently some issues with the creation of portals, including:
-    * Ensuring portals link properly and don't create unnecessary portals
-    * Creating platforms for portals in unsafe locations
-    * Custom details
+* Ensuring portals link properly and don't create unnecessary portals
+* Creating platforms for portals in unsafe locations
+* Custom details
 
 Please open an issue thread here on GitHub or [contact me directly](mailto:jacob5257.dev@gmail.com) if you encounter unexpected behavior.
 
