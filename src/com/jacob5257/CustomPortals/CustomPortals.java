@@ -188,7 +188,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
             World world = Bukkit.getWorld(sourcePortal.getTargetWorld());
             if (world != null) {
                 Location targetLocation = getWorldCoordinates(sourceLocation, world);
-
+                log("We should be at " + targetLocation);
                 Portal targetPortal = getNearestPortal(targetLocation, sourcePortal.getTargetWorld());
                 if (targetPortal != null) {
                     targetPortal.teleportPlayer(player);
@@ -199,7 +199,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
                     if (targetPortal != null) {
                         targetPortal.teleportPlayer(player);
                     } else {
-                        player.sendMessage("Could not create a portal.");
+                        player.sendMessage("There was no space for a target portal at this location. Try moving the portal.");
                     }
                 }
             } else {
@@ -525,16 +525,18 @@ public class CustomPortals extends JavaPlugin implements Listener {
         ArrayList<Portal> portals = worldPortals.get(world.getName());
         log("Searching for portals in " + world.getName());
         log(portals);
-        double minDistance = 0;
+        double minDistance = 64*64;
         Portal closestPortal = null;
         for (Portal portal : portals) {
             if (destinationWorld != null && !portal.getPortalWorld().equals(destinationWorld)) continue;
             double distance = portal.getDistance(location);
+            log("Distance: " + distance);
             if (distance < 0 || distance > minDistance) continue;
             closestPortal = portal;
             minDistance = distance;
         }
-        log("No portal found");
+        if (closestPortal == null) log("No portal found");
+        else log("Closest portal: " + closestPortal);
         return closestPortal;
     }
 

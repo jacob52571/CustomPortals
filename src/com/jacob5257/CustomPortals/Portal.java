@@ -62,7 +62,7 @@ public class Portal {
 
     public void teleportPlayer(Player player) {
         log("Teleporting " + player.getName() + " to " + getPortalWorld());
-        player.teleport(portalBlocks[1][1].getLocation().clone().add(0, -2.5, 0), TeleportCause.PLUGIN);
+        player.teleport(portalBlocks[2][3].getLocation().clone().add(0, 0, 0), TeleportCause.PLUGIN);
     }
 
     public String getPortalWorld() {
