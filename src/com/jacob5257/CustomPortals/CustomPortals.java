@@ -339,6 +339,9 @@ public class CustomPortals extends JavaPlugin implements Listener {
         };
 
         for (Block block : outerPortalBlocks) {
+            if (block.getY() >= targetWorld.getMaxHeight() - 5) {
+                return null;
+            }
             block.setBlockData(blockData);
         }
 
