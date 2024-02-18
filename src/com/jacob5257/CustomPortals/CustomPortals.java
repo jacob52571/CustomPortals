@@ -18,6 +18,9 @@ import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.block.data.BlockData;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.jacob5257.CustomPortals.commands.PortalsCommand;
+import com.jacob5257.CustomPortals.tabCompleters.PortalsCommandTabCompleter;
+
 import java.io.*;
 import java.util.*;
 import java.lang.*;
@@ -189,7 +192,6 @@ public class CustomPortals extends JavaPlugin implements Listener {
             World world = Bukkit.getWorld(sourcePortal.getTargetWorld());
             if (world != null) {
                 Location targetLocation = getWorldCoordinates(sourceLocation, world);
-                log("We should be at " + targetLocation);
                 Portal targetPortal = getNearestPortal(targetLocation, sourcePortal.getTargetWorld());
                 if (targetPortal != null) {
                     targetPortal.teleportPlayer(player);
@@ -531,7 +533,6 @@ public class CustomPortals extends JavaPlugin implements Listener {
         for (Portal portal : portals) {
             if (destinationWorld != null && !portal.getPortalWorld().equals(destinationWorld)) continue;
             double distance = portal.getDistance(location);
-            log("Distance: " + distance);
             if (distance < 0 || distance > minDistance) continue;
             closestPortal = portal;
             minDistance = distance;
@@ -548,7 +549,6 @@ public class CustomPortals extends JavaPlugin implements Listener {
         Portal closestPortal = null;
         for (Portal portal : portals) {
         	double distance = portal.getDistance(location);
-            log("Distance: " + distance);
         	if (distance < 0 || distance > minDistance) continue;
         	closestPortal = portal;
         	minDistance = distance;

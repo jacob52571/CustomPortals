@@ -1,4 +1,4 @@
-package com.jacob5257.CustomPortals;
+package com.jacob5257.CustomPortals.tabCompleters;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

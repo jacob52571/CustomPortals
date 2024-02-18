@@ -1,4 +1,4 @@
-package com.jacob5257.CustomPortals;
+package com.jacob5257.CustomPortals.commands;
 
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -15,7 +15,7 @@ public class PortalsCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (s.equalsIgnoreCase("portals")) {
             if (strings.length == 0) {
-                commandSender.sendMessage("§6Custom Portals §7- §aVersion 0.4.0");
+                commandSender.sendMessage("§6Custom Portals §7- §aVersion 0.5.0");
                 commandSender.sendMessage("§7Developed by §6Jacob5257");
                 commandSender.sendMessage("§7Use §6/portals help §7for a list of commands.");
             } else if (strings[0].equalsIgnoreCase("help")) {
@@ -27,6 +27,7 @@ public class PortalsCommand implements CommandExecutor {
             } else if (strings[0].equalsIgnoreCase("reset")) {
                 if (commandSender.hasPermission("customportals.reset")) {
                     if (strings.length == 1) {
+                        commandSender.sendMessage("§6Custom Portals §7- §cThis command is still being tested and may not work as intented.");
                         commandSender.sendMessage("§6Custom Portals §7- §cAre you sure you want to do this? All existing portals will have to be relit! Type /portals reset confirm to do this.");
                     } else if (strings[1].equalsIgnoreCase("confirm")) {
                         commandSender.sendMessage("§6Custom Portals §7- §aResetting all portals...");
@@ -42,7 +43,6 @@ public class PortalsCommand implements CommandExecutor {
                         //CustomPortals.resetPortals();
                         commandSender.sendMessage("§6Custom Portals §7- §aAll portals have been reset.");
                     }
-                    commandSender.sendMessage("§6Custom Portals §7- §aAre you sure you want to do this? All existing portals will have to be relit! Type /portals reset confirm to do this.");
                 } else {
                     commandSender.sendMessage("§6Custom Portals §7- §cYou do not have permission to use this command.");
                 }
