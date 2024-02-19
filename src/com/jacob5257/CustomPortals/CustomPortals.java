@@ -197,7 +197,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
                     targetPortal.teleportPlayer(player);
                 } else {
                     // Create a portal?
-                    targetPortal = createPortal(targetLocation, sourcePortal.getPortalWorld());
+                    targetPortal = createPortal(targetLocation, sourcePortal.getPortalWorld(), event.getPlayer());
 
                     if (targetPortal != null) {
                         targetPortal.teleportPlayer(player);
@@ -214,11 +214,15 @@ public class CustomPortals extends JavaPlugin implements Listener {
         }
     }
 
-    private Portal createPortal(Location targetLocation, String sourceWorldName) {
+    private Portal createPortal(Location targetLocation, String sourceWorldName, Player player) {
         log("Attempting to create a portal in " + targetLocation.getWorld().getName() + ", target location: " + targetLocation);
 
         World targetWorld = targetLocation.getWorld();
         World sourceWorld = Bukkit.getWorld(sourceWorldName);
+        if (targetWorld.equals(sourceWorld)) {
+            player.sendMessage("Cannot create a portal in the same source and target world.");
+            return null;
+        }
 
         BlockData blockData = getPortalMaterial(sourceWorldName);
         log("Portal should be constructed from " + blockData + " to return to world " + sourceWorldName);
@@ -252,7 +256,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
                 return null;
             }
 
-            return getPortal(targetWorld, sourceWorld, blockData, portalBase);
+            return getPortal(targetWorld, sourceWorld, blockData, portalBase, player);
         } else {
             log("Finding location via Bukkit");
 
@@ -294,11 +298,16 @@ public class CustomPortals extends JavaPlugin implements Listener {
                 return null;
             }
 
-            return getPortal(targetWorld, sourceWorld, blockData, space);
+            return getPortal(targetWorld, sourceWorld, blockData, space, player);
         }
     }
 
-    private Portal getPortal(World targetWorld, World sourceWorld, BlockData blockData, Block space) {
+    private Portal getPortal(World targetWorld, World sourceWorld, BlockData blockData, Block space, Player player) {
+        if (targetWorld.equals(sourceWorld)) {
+            player.sendMessage("Cannot create portal to the same world as the current one.");
+            return null;
+        }
+
         Block[][] portalBlocks = new Block[4][5];
         portalBlocks[0][0] = space.getRelative(0, -1, 0);
         portalBlocks[1][0] = space.getRelative(1, -1, 0);
@@ -491,7 +500,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
                     portalBlocks[2][4]
             };
 
-            boolean isPortal = areValidBlocks(outerPortalBlocks, material);
+            boolean isPortal = areValidBlocks(outerPortalBlocks, material) && !(Bukkit.getWorld(targetWorld).equals(event.getPlayer().getWorld()));
             if (isPortal) {
                 player.sendMessage(targetWorld + " portal created!");
 
@@ -505,7 +514,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
 
                 log("Portal created: " + portal);
             } else {
-                player.sendMessage("An error occured.");
+                player.sendMessage("An error occured. Make sure all blocks are valid and that the source and target worlds are not the same.");
             }
         }
     }
