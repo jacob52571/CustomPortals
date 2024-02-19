@@ -14,7 +14,7 @@ public class PortalsCommand implements CommandExecutor {
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] strings) {
         if (s.equalsIgnoreCase("portals")) {
             if (strings.length == 0) {
-                commandSender.sendMessage("§6Custom Portals §7- §aVersion 0.6.0");
+                commandSender.sendMessage("§6Custom Portals §7- §aVersion 0.7.0");
                 commandSender.sendMessage("§7Developed by §6Jacob5257");
                 commandSender.sendMessage("§7Use §6/portals help §7for a list of commands.");
             } else if (strings[0].equalsIgnoreCase("help")) {
