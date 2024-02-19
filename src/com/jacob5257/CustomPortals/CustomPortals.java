@@ -7,6 +7,7 @@ import org.bukkit.World;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.configuration.ConfigurationSection;
@@ -515,6 +516,33 @@ public class CustomPortals extends JavaPlugin implements Listener {
                 log("Portal created: " + portal);
             } else {
                 player.sendMessage("An error occured. Make sure all blocks are valid and that the source and target worlds are not the same.");
+            }
+        }
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event) {
+        Block block = event.getBlock();
+        Player player = event.getPlayer();
+        // check if block is in any of the portal's getPortalBlocks()
+        for (Map.Entry<String, ArrayList<Portal>> entry : worldPortals.entrySet()) {
+            for (Portal portal : entry.getValue()) {
+                for (Block[] blocks : portal.getPortalBlocks()) {
+                    for (Block b : blocks) {
+                        if (b.equals(block)) {
+                            // remove it from the list of portals
+                            ArrayList<Portal> portals = worldPortals.get(entry.getKey());
+                            portals.remove(portal);
+                            worldPortals.put(entry.getKey(), portals);
+                            // remove the portal from the world
+                            for (Block[] portalBlocks : portal.getPortalBlocks()) {
+                                for (Block portalBlock : portalBlocks) {
+                                    portalBlock.setType(Material.AIR);
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }
     }
