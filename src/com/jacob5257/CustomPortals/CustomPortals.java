@@ -523,7 +523,6 @@ public class CustomPortals extends JavaPlugin implements Listener {
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         Block block = event.getBlock();
-        Player player = event.getPlayer();
         // check if block is in any of the portal's getPortalBlocks()
         for (Map.Entry<String, ArrayList<Portal>> entry : worldPortals.entrySet()) {
             for (Portal portal : entry.getValue()) {
