@@ -525,23 +525,27 @@ public class CustomPortals extends JavaPlugin implements Listener {
         Block block = event.getBlock();
         // check if block is in any of the portal's getPortalBlocks()
         for (Map.Entry<String, ArrayList<Portal>> entry : worldPortals.entrySet()) {
-            for (Portal portal : entry.getValue()) {
-                for (Block[] blocks : portal.getPortalBlocks()) {
-                    for (Block b : blocks) {
-                        if (b.equals(block)) {
-                            // remove it from the list of portals
-                            ArrayList<Portal> portals = worldPortals.get(entry.getKey());
-                            portals.remove(portal);
-                            worldPortals.put(entry.getKey(), portals);
-                            // remove the portal from the world
-                            for (Block[] portalBlocks : portal.getPortalBlocks()) {
-                                for (Block portalBlock : portalBlocks) {
-                                    portalBlock.setType(Material.AIR);
+            try {
+                for (Portal portal : entry.getValue()) {
+                    for (Block[] blocks : portal.getPortalBlocks()) {
+                        for (Block b : blocks) {
+                            if (b.equals(block)) {
+                                // remove it from the list of portals
+                                ArrayList<Portal> portals = worldPortals.get(entry.getKey());
+                                portals.remove(portal);
+                                worldPortals.put(entry.getKey(), portals);
+                                // remove the portal from the world
+                                for (Block[] portalBlocks : portal.getPortalBlocks()) {
+                                    for (Block portalBlock : portalBlocks) {
+                                        portalBlock.setType(Material.AIR);
+                                    }
                                 }
                             }
                         }
                     }
                 }
+            } catch (ConcurrentModificationException e) {
+                log("Concurrent modification exception caught");
             }
         }
     }
@@ -552,9 +556,8 @@ public class CustomPortals extends JavaPlugin implements Listener {
         double originalY = location.getY();
         double currentWorldScale = worldScales.get(currentWorld.getName());
         double targetWorldScale = worldScales.get(targetWorld.getName());
-
-        location = location.clone().multiply(1D / currentWorldScale);
-        location.multiply(targetWorldScale);
+        double scaleFactor = currentWorldScale / targetWorldScale;
+        location.multiply(scaleFactor);
         location.setY(originalY);
         location.setWorld(targetWorld);
 
