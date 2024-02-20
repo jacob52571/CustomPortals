@@ -52,8 +52,6 @@ world-scale:
 
 You must provide a world scale for each world that a portal may be created for. If this isn't specified, the teleport will not work. Decimal values are accepted but not recommended (untested).
 
-***TODO:*** Implement default world scale.
-
 ##### Example
 
 When teleporting from `world_nether` to `arcade`, the x and y coordinates will be converted to `universe coordinates` by diving by the `world-scale` constant for `world_nether` (`8.0`). To convert the `u coordiantes` to `world coordinates` for `arcade` they must be multiplied by the `world-scale` for `arcade` (`2.0`).
