@@ -59,50 +59,28 @@ public class Portal {
             }
             teleportBlock.setBlockData(directional);
         }
-        // see if there is a need for platform blocks
-        // base is at [0][1] and [0][2]
-        Block base1 = portalBlocks[0][1];
-        Block base2 = portalBlocks[0][2];
+        Block base1 = portalBlocks[1][0];
+        Block base2 = portalBlocks[2][0];
         if (northSouth) {
-        	if (base1.getRelative(BlockFace.NORTH).getType().equals(Material.LAVA) || base1.getRelative(BlockFace.NORTH).getType().equals(Material.AIR)) {
-        		// negative Z
-        		Block needBlockHere = base1.getRelative(BlockFace.NORTH);
-        		needBlockHere.setBlockData(base1.getBlockData());
-        	}
-        	if (base1.getRelative(BlockFace.SOUTH).getType().equals(Material.LAVA) || base1.getRelative(BlockFace.SOUTH).getType().equals(Material.AIR)) {
-        		Block needBlockHere = base1.getRelative(BlockFace.SOUTH);
-        		needBlockHere.setBlockData(base1.getBlockData());
-        	}
-        	if (base2.getRelative(BlockFace.NORTH).getType().equals(Material.LAVA) || base2.getRelative(BlockFace.NORTH).getType().equals(Material.AIR)) {
-        		Block needBlockHere = base2.getRelative(BlockFace.NORTH);
-        		needBlockHere.setBlockData(base2.getBlockData());
-        	}
-        	if (base2.getRelative(BlockFace.SOUTH).getType().equals(Material.LAVA) || base2.getRelative(BlockFace.SOUTH).getType().equals(Material.AIR)) {
-        		Block needBlockHere = base2.getRelative(BlockFace.SOUTH);
-        		needBlockHere.setBlockData(base2.getBlockData());
-        	}
+        	spawnSafePlatform(base1, BlockFace.NORTH, BlockFace.SOUTH);
+            spawnSafePlatform(base2, BlockFace.NORTH, BlockFace.SOUTH);
         }
         else {
-        	if (base1.getRelative(BlockFace.EAST).getType().equals(Material.LAVA) || base1.getRelative(BlockFace.EAST).getType().equals(Material.AIR)) {
-        		// negative Z
-        		Block needBlockHere = base1.getRelative(BlockFace.EAST);
-        		needBlockHere.setBlockData(base1.getBlockData());
-        	}
-        	if (base1.getRelative(BlockFace.WEST).getType().equals(Material.LAVA) || base1.getRelative(BlockFace.WEST).getType().equals(Material.AIR)) {
-        		// negative Z
-        		Block needBlockHere = base1.getRelative(BlockFace.WEST);
-        		needBlockHere.setBlockData(base1.getBlockData());
-        	}
-        	if (base2.getRelative(BlockFace.EAST).getType().equals(Material.LAVA) || base2.getRelative(BlockFace.EAST).getType().equals(Material.AIR)) {
-        		// negative Z
-        		Block needBlockHere = base2.getRelative(BlockFace.EAST);
-        		needBlockHere.setBlockData(base2.getBlockData());
-        	}
-        	if (base2.getRelative(BlockFace.WEST).getType().equals(Material.LAVA) || base2.getRelative(BlockFace.WEST).getType().equals(Material.AIR)) {
-        		// negative Z
-        		Block needBlockHere = base2.getRelative(BlockFace.WEST);
-        		needBlockHere.setBlockData(base2.getBlockData());
-        	}
+            spawnSafePlatform(base1, BlockFace.EAST, BlockFace.WEST);
+            spawnSafePlatform(base2, BlockFace.EAST, BlockFace.WEST);
+        }
+    }
+
+    private static void spawnSafePlatform(Block base1, BlockFace blockFace1, BlockFace blockFace2) {
+        if (base1.getRelative(blockFace1).getType().equals(Material.LAVA) || base1.getRelative(blockFace1).getType().equals(Material.AIR)) {
+            // negative Z
+            Block needBlockHere = base1.getRelative(blockFace1);
+            needBlockHere.setBlockData(base1.getBlockData());
+        }
+        if (base1.getRelative(blockFace2).getType().equals(Material.LAVA) || base1.getRelative(blockFace2).getType().equals(Material.AIR)) {
+            // negative Z
+            Block needBlockHere = base1.getRelative(blockFace2);
+            needBlockHere.setBlockData(base1.getBlockData());
         }
     }
 
