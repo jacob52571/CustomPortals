@@ -3,6 +3,7 @@ package com.jacob5257.CustomPortals;
 import org.bukkit.Axis;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.block.BlockFace;
 import org.bukkit.Material;
 import org.bukkit.block.data.Orientable;
 import org.bukkit.entity.Player;
@@ -57,6 +58,51 @@ public class Portal {
             	directional.setAxis(Axis.X);
             }
             teleportBlock.setBlockData(directional);
+        }
+        // see if there is a need for platform blocks
+        // base is at [0][1] and [0][2]
+        Block base1 = portalBlocks[0][1];
+        Block base2 = portalBlocks[0][2];
+        if (northSouth) {
+        	if (base1.getRelative(BlockFace.NORTH).getType().equals(Material.LAVA) || base1.getRelative(BlockFace.NORTH).getType().equals(Material.AIR)) {
+        		// negative Z
+        		Block needBlockHere = base1.getRelative(BlockFace.NORTH);
+        		needBlockHere.setBlockData(base1.getBlockData());
+        	}
+        	if (base1.getRelative(BlockFace.SOUTH).getType().equals(Material.LAVA) || base1.getRelative(BlockFace.SOUTH).getType().equals(Material.AIR)) {
+        		Block needBlockHere = base1.getRelative(BlockFace.SOUTH);
+        		needBlockHere.setBlockData(base1.getBlockData());
+        	}
+        	if (base2.getRelative(BlockFace.NORTH).getType().equals(Material.LAVA) || base2.getRelative(BlockFace.NORTH).getType().equals(Material.AIR)) {
+        		Block needBlockHere = base2.getRelative(BlockFace.NORTH);
+        		needBlockHere.setBlockData(base2.getBlockData());
+        	}
+        	if (base2.getRelative(BlockFace.SOUTH).getType().equals(Material.LAVA) || base2.getRelative(BlockFace.SOUTH).getType().equals(Material.AIR)) {
+        		Block needBlockHere = base2.getRelative(BlockFace.SOUTH);
+        		needBlockHere.setBlockData(base2.getBlockData());
+        	}
+        }
+        else {
+        	if (base1.getRelative(BlockFace.EAST).getType().equals(Material.LAVA) || base1.getRelative(BlockFace.EAST).getType().equals(Material.AIR)) {
+        		// negative Z
+        		Block needBlockHere = base1.getRelative(BlockFace.EAST);
+        		needBlockHere.setBlockData(base1.getBlockData());
+        	}
+        	if (base1.getRelative(BlockFace.WEST).getType().equals(Material.LAVA) || base1.getRelative(BlockFace.WEST).getType().equals(Material.AIR)) {
+        		// negative Z
+        		Block needBlockHere = base1.getRelative(BlockFace.WEST);
+        		needBlockHere.setBlockData(base1.getBlockData());
+        	}
+        	if (base2.getRelative(BlockFace.EAST).getType().equals(Material.LAVA) || base2.getRelative(BlockFace.EAST).getType().equals(Material.AIR)) {
+        		// negative Z
+        		Block needBlockHere = base2.getRelative(BlockFace.EAST);
+        		needBlockHere.setBlockData(base2.getBlockData());
+        	}
+        	if (base2.getRelative(BlockFace.WEST).getType().equals(Material.LAVA) || base2.getRelative(BlockFace.WEST).getType().equals(Material.AIR)) {
+        		// negative Z
+        		Block needBlockHere = base2.getRelative(BlockFace.WEST);
+        		needBlockHere.setBlockData(base2.getBlockData());
+        	}
         }
     }
 
