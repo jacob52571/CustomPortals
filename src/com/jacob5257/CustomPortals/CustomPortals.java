@@ -599,7 +599,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
     }
 
     public static void log(Object message) {
-        if (DEBUG_MODE) System.out.println("[CustomPortals] " + message);
+        if (DEBUG_MODE) Bukkit.getServer().getConsoleSender().sendMessage("[CustomPortals] " + message);
     }
 
     private boolean isPortalValid(Portal portal) {
