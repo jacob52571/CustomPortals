@@ -61,7 +61,7 @@ public class Portal {
         }
         Block base1 = portalBlocks[1][0];
         Block base2 = portalBlocks[2][0];
-        if (northSouth) {
+        if (!northSouth) {
         	spawnSafePlatform(base1, BlockFace.NORTH, BlockFace.SOUTH);
             spawnSafePlatform(base2, BlockFace.NORTH, BlockFace.SOUTH);
         }
