@@ -65,7 +65,7 @@ When teleporting from `world_nether` to `arcade`, the x and y coordinates will b
 ## Bugs/Planned Features
 
 * ~~Ensuring portals link properly and don't create unnecessary portals~~ Mostly fixed as of v0.7.0.
-* ~~Creating platforms for portals in unsafe locations~~ Patch will be implemented in v0.8.0, still testing though.
+* ~~Creating platforms for portals in unsafe locations~~ Fixed in v0.8.0.
 * Custom details
 
 Please open an issue thread here on GitHub or [contact me directly](mailto:jacob5257.dev@gmail.com) if you encounter unexpected behavior.
