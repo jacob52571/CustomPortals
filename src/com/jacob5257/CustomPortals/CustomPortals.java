@@ -25,13 +25,9 @@ import com.jacob5257.CustomPortals.tabCompleters.PortalsCommandTabCompleter;
 
 import java.io.*;
 import java.util.*;
-import java.lang.*;
 
 public class CustomPortals extends JavaPlugin implements Listener {
     public static boolean DEBUG_MODE = true;
-
-    // TODO implement non-flint and steel activation
-//    public static boolean PORTALS_REQUIRE_ACTIVATION = true;
 
     private HashMap<String, ArrayList<Portal>> worldPortals = new HashMap<>();
     private HashMap<String, BlockData> portalMaterials = new HashMap<>();
@@ -86,7 +82,6 @@ public class CustomPortals extends JavaPlugin implements Listener {
         Portal.PORTAL_MAX_DISTANCE = config.getInt("portal-search-range", 64);
         Portal.PORTAL_MAX_DISTANCE_SQUARED = Portal.PORTAL_MAX_DISTANCE * Portal.PORTAL_MAX_DISTANCE;
         Portal.PORTAL_CREATION_RANGE = config.getInt("portal-creation-range", 24);
-//        PORTALS_REQUIRE_ACTIVATION = config.getBoolean("require-activation", true);
         DEBUG_MODE = config.getBoolean("debug-mode", false);
         log("Debug mode enabled.");
     }
@@ -200,8 +195,6 @@ public class CustomPortals extends JavaPlugin implements Listener {
         Portal sourcePortal = getSourcePortal(sourceLocation);
 
         if (sourcePortal != null) {
-            // Found a portal that they're stood at!
-//            player.sendMessage("You are near: " + sourcePortal.getLocation());
 
             World world = Bukkit.getWorld(sourcePortal.getTargetWorld());
             if (world != null) {
@@ -528,7 +521,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
 
                 log("Portal created: " + portal);
             } else {
-                player.sendMessage("An error occured. Make sure all blocks are valid and that the source and target worlds are not the same.");
+                player.sendMessage("An error occured. This can be caused by an incorrect portal size or identical target and source worlds.");
             }
         }
     }

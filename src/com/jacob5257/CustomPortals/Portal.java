@@ -71,7 +71,7 @@ public class Portal {
         }
     }
 
-    private static void spawnSafePlatform(Block base1, BlockFace blockFace1, BlockFace blockFace2) {
+    private void spawnSafePlatform(Block base1, BlockFace blockFace1, BlockFace blockFace2) {
         if (base1.getRelative(blockFace1).getType().equals(Material.LAVA) || base1.getRelative(blockFace1).getType().equals(Material.AIR)) {
             // negative Z
             Block needBlockHere = base1.getRelative(blockFace1);
@@ -82,8 +82,8 @@ public class Portal {
             Block needBlockHere = base1.getRelative(blockFace2);
             needBlockHere.setBlockData(base1.getBlockData());
         }
-    }
-
+    }     
+    
     public void teleportPlayer(Player player) {
         log("Teleporting " + player.getName() + " to " + getPortalWorld());
         player.teleport(portalBlocks[2][3].getLocation().clone().add(0, 0, 0), TeleportCause.PLUGIN);

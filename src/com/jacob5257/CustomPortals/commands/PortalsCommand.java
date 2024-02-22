@@ -75,6 +75,7 @@ public class PortalsCommand implements CommandExecutor {
                         while ((line = bufferedReader.readLine()) != null) {
                             commandSender.sendMessage(line);
                         }
+                        bufferedReader.close();
                     } catch (FileNotFoundException e) {
                         commandSender.sendMessage("§6Custom Portals §7- §cThe config.yml file does not exist. Try reloading the plugin.");
                     } catch (NullPointerException e) {
