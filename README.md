@@ -74,5 +74,4 @@ Please open an issue thread here on GitHub or [contact me directly](mailto:jacob
 
 ## Credits
 
-This plugin is based off [IncognitoJam](https://github.com/incognitojam/CustomPortals)'s plugin.
-This plugin was developed by IncognitoJam at the request of [Robotnik](https://www.spigotmc.org/members/robotnik.9977/) on the SpigotMC forums.
+This plugin is based off [IncognitoJam](https://github.com/incognitojam/CustomPortals)'s plugin, created at the request of [Robotnik](https://www.spigotmc.org/members/robotnik.9977/) on the SpigotMC forums.
