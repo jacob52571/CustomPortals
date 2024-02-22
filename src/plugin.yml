@@ -7,7 +7,7 @@ api-version: 1.20
 permissions:
    customportals.create:
       description: Allows you to create portals to custom worlds.
-      default: op
+      default: true
    customportals.manage:
       description: Allows you to reset all portals.
       default: op

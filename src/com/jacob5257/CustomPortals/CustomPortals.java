@@ -521,7 +521,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
 
                 log("Portal created: " + portal);
             } else {
-                player.sendMessage("An error occured. This can be caused by an incorrect portal size or identical target and source worlds.");
+                player.sendMessage("An error occured. This could be caused by incorrect portal size.");
             }
         }
     }
