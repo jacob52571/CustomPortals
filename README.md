@@ -4,6 +4,10 @@ Rewrite to the latest MC version forked from https://github.com/incognitojam/Cus
 
 Create portals in your Minecraft server made from alternative materials to teleport your users to different worlds. Custom world materials can be specified in the configuration file.
 
+## Download
+
+Releases can be found [here on GitHub](https://github.com/jacob52571/CustomPortals/releases).
+
 ## Configuration
 
 Below each configuration option is explained in detail.
@@ -64,18 +68,11 @@ When teleporting from `world_nether` to `arcade`, the x and y coordinates will b
 
 ## Bugs/Planned Features
 
-* ~~Ensuring portals link properly and don't create unnecessary portals~~ Mostly fixed as of v0.7.0.
-* ~~Creating platforms for portals in unsafe locations~~ Fixed in v0.8.0.
 * Custom details
 
 Please open an issue thread here on GitHub or [contact me directly](mailto:jacob5257.dev@gmail.com) if you encounter unexpected behavior.
 
-## Releases
-
-Releases can be found [here on GitHub](https://github.com/jacob52571/CustomPortals/releases).
-As of right now, the plugin is still in pre-release as I am still rewriting/upgrading and I hope to have a production-ready version soon.
-
 ## Credits
 
-All source code from this plugin was originally developed by [IncognitoJam](https://github.com/incognitojam/CustomPortals).
+This plugin is based off [IncognitoJam](https://github.com/incognitojam/CustomPortals)'s plugin.
 This plugin was developed by IncognitoJam at the request of [Robotnik](https://www.spigotmc.org/members/robotnik.9977/) on the SpigotMC forums.
