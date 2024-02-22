@@ -25,6 +25,9 @@ public class UpdateCheck {
         Thread th = new Thread((Runnable) new BukkitRunnable() {
             @Override
             public void run() {
+                if (CustomPortals.newUpdate) {
+                    return;
+                }
                 String v = null;
                 try {
                     v = getText(urlVersionCheck);
