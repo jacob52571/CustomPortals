@@ -9,6 +9,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerPortalEvent;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -35,6 +36,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
     private HashMap<String, ArrayList<Portal>> worldPortals = new HashMap<>();
     private HashMap<String, BlockData> portalMaterials = new HashMap<>();
     private HashMap<String, Double> worldScales = new HashMap<>();
+    public static boolean newUpdate = false;
 
     private FileConfiguration config;
 
@@ -44,7 +46,8 @@ public class CustomPortals extends JavaPlugin implements Listener {
         config = getConfig();
         loadConfig();
         loadPortals();
-    
+        UpdateCheck updateCheck = new UpdateCheck(this, "https://jacob52571.github.io/CustomPortalsVersion.txt");
+
         this.getServer().getPluginManager().registerEvents(this, this);
         Objects.requireNonNull(getCommand("portals")).setExecutor(new PortalsCommand());
         Objects.requireNonNull(getCommand("portals")).setTabCompleter(new PortalsCommandTabCompleter());
@@ -176,7 +179,17 @@ public class CustomPortals extends JavaPlugin implements Listener {
             e.printStackTrace();
         }
     }
-    
+
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        if (event.getPlayer().isOp()) {
+            if (newUpdate) {
+                event.getPlayer().sendMessage("§6Custom Portals §7- §aThere is an update available!");
+                event.getPlayer().sendMessage("§6Custom Portals §7- §aUpdate your plugin at: https://github.com/jacob52571/CustomPortals/releases");
+            }
+        }
+    }
+
     @EventHandler
     public void onPlayerPortal(PlayerPortalEvent event) {
         if (!event.getCause().equals(PlayerTeleportEvent.TeleportCause.NETHER_PORTAL)) return;
