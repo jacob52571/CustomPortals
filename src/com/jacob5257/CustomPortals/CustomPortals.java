@@ -576,7 +576,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
         ArrayList<Portal> portals = worldPortals.get(world.getName());
         log("Searching for portals in " + world.getName());
         log(portals);
-        double minDistance = 64*64;
+        double minDistance = Portal.PORTAL_MAX_DISTANCE;
         Portal closestPortal = null;
         for (Portal portal : portals) {
             if (destinationWorld != null && !portal.getPortalWorld().equals(destinationWorld)) continue;

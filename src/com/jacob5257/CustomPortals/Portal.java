@@ -25,6 +25,7 @@ public class Portal {
     private Location centerLocation;
 
     private Block[][] portalBlocks;
+    private boolean northSouth;
 
     public Portal(String portalWorld, String targetWorld, Block[][] portalBlocks) {
         this.portalWorld = portalWorld;
@@ -46,7 +47,7 @@ public class Portal {
                 portalBlocks[2][3]
         };
 
-        boolean northSouth = portalBlocks[0][0].getX() == portalBlocks[1][0].getX();
+        this.northSouth = portalBlocks[0][0].getX() == portalBlocks[1][0].getX();
 
         // Create 'portal' within portal
         for (Block teleportBlock : innerPortalBlocks) {
@@ -86,7 +87,13 @@ public class Portal {
     
     public void teleportPlayer(Player player) {
         log("Teleporting " + player.getName() + " to " + getPortalWorld());
-        player.teleport(portalBlocks[1][0].getRelative(portalBlocks[0][0].getX() == portalBlocks[1][0].getX() ? BlockFace.EAST : BlockFace.NORTH).getLocation().clone().add(0, 0, 0), TeleportCause.PLUGIN);
+        log(portalBlocks[1][0].getX() + " " + portalBlocks[1][0].getY() + " " + portalBlocks[1][0].getZ());
+        if (!northSouth) {
+            player.teleport(portalBlocks[1][0].getRelative(BlockFace.EAST).getLocation().clone().add(0, 1, 0), TeleportCause.PLUGIN);
+        }
+        else {
+            player.teleport(portalBlocks[2][0].getRelative(BlockFace.NORTH).getLocation().clone().add(0, 1, 0), TeleportCause.PLUGIN);
+        }
     }
 
     public String getPortalWorld() {
