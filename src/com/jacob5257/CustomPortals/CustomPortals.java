@@ -390,7 +390,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
         Player player = event.getPlayer();
         if (!(event.getAction() == Action.RIGHT_CLICK_BLOCK)) return;
         if (event.getItem() == null) return;
-        if (!(event.getItem().getType() == Material.FLINT_AND_STEEL)) return;
+        if (!(event.getItem().getType() == Material.FLINT_AND_STEEL || event.getItem().getType() == Material.FIRE_CHARGE)) return;
         if (!player.hasPermission("customportals.create")) {
         		player.sendMessage("You do not have permission to make custom portals.");
         		return;
