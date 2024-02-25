@@ -546,6 +546,9 @@ public class CustomPortals extends JavaPlugin implements Listener {
                                         portalBlock.setType(Material.AIR);
                                     }
                                 }
+                                for (Block baseBlock : portal.getBaseBlocks()) {
+                                    baseBlock.setType(Material.AIR);
+                                }
                             }
                         }
                     }

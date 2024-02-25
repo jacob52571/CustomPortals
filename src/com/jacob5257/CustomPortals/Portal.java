@@ -9,6 +9,9 @@ import org.bukkit.block.data.Orientable;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerTeleportEvent.TeleportCause;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static com.jacob5257.CustomPortals.CustomPortals.log;
 
 public class Portal {
@@ -26,6 +29,7 @@ public class Portal {
 
     private Block[][] portalBlocks;
     private boolean northSouth;
+    private List<Block> baseBlocks = new ArrayList<>();
 
     public Portal(String portalWorld, String targetWorld, Block[][] portalBlocks) {
         this.portalWorld = portalWorld;
@@ -77,11 +81,13 @@ public class Portal {
             // negative Z
             Block needBlockHere = base1.getRelative(blockFace1);
             needBlockHere.setBlockData(base1.getBlockData());
+            baseBlocks.add(needBlockHere);
         }
         if (base1.getRelative(blockFace2).getType().equals(Material.LAVA) || base1.getRelative(blockFace2).getType().equals(Material.AIR)) {
             // negative Z
             Block needBlockHere = base1.getRelative(blockFace2);
             needBlockHere.setBlockData(base1.getBlockData());
+            baseBlocks.add(needBlockHere);
         }
     }     
     
@@ -125,5 +131,9 @@ public class Portal {
 
     private String toString(Location location) {
         return location.getBlockX() + ";" + location.getBlockY() + ";" + location.getBlockZ();
+    }
+
+    public List<Block> getBaseBlocks() {
+        return baseBlocks;
     }
 }
