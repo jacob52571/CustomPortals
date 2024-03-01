@@ -62,7 +62,7 @@ When teleporting from `world_nether` to `arcade`, the x and y coordinates will b
 
 #### Permissions
 
-`customportals.create`: allows the user to create portals. Defaults to all operators.
+`customportals.create`: allows the user to create portals. Defaults to all players.
 
 `customportals.reset`: allows the user to reset all portals in the server. Defaults to all operators.
 
