@@ -217,7 +217,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
             }
         } else {
             // We don't know about this portal :(
-            player.sendMessage("Confused :(");
+            player.sendMessage("This portal is not in our database. Please relight it and try again.");
         }
     }
 
@@ -422,14 +422,14 @@ public class CustomPortals extends JavaPlugin implements Listener {
                 Block portalNorthAir = portalBaseNorth.getRelative(BlockFace.UP);
                 Block portalSouthAir = portalBaseSouth.getRelative(BlockFace.UP);
 
-                if (portalNorthAir.getType() == Material.AIR) {
+                if (portalNorthAir.getType() == Material.AIR || portalNorthAir.getType() == Material.LIGHT) {
                     // There is also a space for the portal to the north!
                     portalBlocks[0][0] = portalBaseNorth.getRelative(BlockFace.NORTH);
                     portalBlocks[1][0] = portalBaseNorth;
                     portalBlocks[2][0] = block;
                     portalBlocks[3][0] = block.getRelative(BlockFace.SOUTH);
 
-                } else if (portalSouthAir.getType() == Material.AIR) {
+                } else if (portalSouthAir.getType() == Material.AIR || portalSouthAir.getType() == Material.LIGHT) {
                     // There is also a space for the portal to the south!
                     portalBlocks[0][0] = portalBaseNorth;
                     portalBlocks[1][0] = block;
@@ -438,7 +438,7 @@ public class CustomPortals extends JavaPlugin implements Listener {
 
                 } else {
                     // The only "air" (fire) was the flint and steel just placed
-                    player.sendMessage("Not a portal 4 :(");
+                    player.sendMessage("The portal has blocks inside of it. Consider moving the portal.");
                     return;
                 }
 
@@ -446,14 +446,14 @@ public class CustomPortals extends JavaPlugin implements Listener {
                 Block portalWestAir = portalBaseWest.getRelative(BlockFace.UP);
                 Block portalEastAir = portalBaseEast.getRelative(BlockFace.UP);
 
-                if (portalWestAir.getType() == Material.AIR) {
+                if (portalWestAir.getType() == Material.AIR || portalWestAir.getType() == Material.LIGHT) {
                     // There is also a space for the portal to the west!
                     portalBlocks[0][0] = portalBaseWest.getRelative(BlockFace.WEST);
                     portalBlocks[1][0] = portalBaseWest;
                     portalBlocks[2][0] = block;
                     portalBlocks[3][0] = portalBaseEast;
 
-                } else if (portalEastAir.getType() == Material.AIR) {
+                } else if (portalEastAir.getType() == Material.AIR || portalEastAir.getType() == Material.LIGHT) {
                     // There is also a space for the portal to the east!
                     portalBlocks[0][0] = portalBaseWest;
                     portalBlocks[1][0] = block;
@@ -462,12 +462,12 @@ public class CustomPortals extends JavaPlugin implements Listener {
 
                 } else {
                     // The only "air" (fire) was the flint and steel just placed
-                    player.sendMessage("Not a portal 3 :(");
+                    player.sendMessage("The portal has blocks inside of it. Consider moving the portal.");
                     return;
                 }
 
             } else {
-                player.sendMessage("Not a portal 2 :(");
+                player.sendMessage("The portal is not on one axis.");
                 return;
             }
 
