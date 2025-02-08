@@ -70,7 +70,7 @@ When teleporting from `world_nether` to `arcade`, the x and y coordinates will b
 
 * Custom details
 
-Please open an issue thread here on GitHub or [contact me directly](mailto:jacob5257.dev@gmail.com) if you encounter unexpected behavior.
+Please open an issue thread here on GitHub or [contact me directly](mailto:hello@jacob5257.com) if you encounter unexpected behavior.
 
 ## Credits
 
